@@ -1,29 +1,43 @@
 <?php
 session_start();
-include("conexion.php");
+include("util.php");
 
 
 $_SESSION['logueado'] = false;
+$error = " ";
 
 if ($_POST) {
-    $usuario = $_POST['usuario'];
-    $password = $_POST['password'];
+    $usuario = (isset($_POST['usuario']) ? $_POST["usuario"]:"");
+    $password = (isset($_POST['password']) ? $_POST["password"]:"");
 
     $conexionBD = new Conexion();
     $conexion = $conexionBD->obtenerConexion();
 
     $resultados = $conexionBD->login
-        ('SELECT *, count(*) as n_usuarios FROM usuarios WHERE usuario=:usuario AND contraseña=:password', 
+        ('SELECT *, count(*) as n_usuarios FROM cliente WHERE usuario=:usuario AND contraseña=:password'
+        , 
          array(':usuario' => $usuario, ':password' => $password));
 
-         if (intval($resultados['n_usuarios']) > 0) {
-            echo "Hola";
+         if (intval($resultados['n_usuarios']) >= 1) {
+         
+          $error = " ";
+          $_SESSION['logueado'] = true;
+          header("location: indexCliente.php");
+          
+
+          
+
         } else {
-            echo "aaa";
+
+            $error = "no se ha encontrado tu usuario";
+            
+
         }
-        
-    var_dump($usuario);
-    var_dump($password);
+
+}
+
+if(!$_POST){
+  $error = " ";
 
 }
 
@@ -37,23 +51,33 @@ if ($_POST) {
   <head>
     <meta charset="utf-8">
     <title>taller mecánico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    
   </head>
   <body>
     <div class="center">
       <h1>Iniciar sesión</h1>
+      <div class="card text-center m-auto p-3">
+    <div class="card-body">
+    <?php if($error !== " " && $_POST){ ?>
+        <div class="alert alert-danger" role="alert">
+            <strong><?php echo $error;?></strong>
+        </div>
+    <?php } ?>
+</div>
+
       <form method="post">
         <div class="txt_field">
-          <input type="text" required>
+          <input type="text" required name="usuario">
           <span></span>
           <label>Username</label>
         </div>
         <div class="txt_field">
-          <input type="password" required>
+          <input type="password" required name="password">
           <span></span>
           <label>Password</label>
         </div>
-        <div class="pass">Forgot Password?</div>
         <input type="submit" value="Login">
         <div class="signup_link">
         <a href="registro.php"> ¿No tienes una cuenta? Regístrate</a>
@@ -63,3 +87,4 @@ if ($_POST) {
 
   </body>
 </html>
+

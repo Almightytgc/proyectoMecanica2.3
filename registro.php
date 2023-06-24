@@ -1,3 +1,10 @@
+<?php 
+include("util.php");
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -8,7 +15,9 @@
   <body>
     <div class="center">
       <h1>Registro</h1>
-      <form method="post">
+
+
+      <form method="post" action="">
 
       <div class="txt_field">
           <input type="text" required>
