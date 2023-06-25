@@ -14,7 +14,7 @@ if ($_POST) {
     $conexion = $conexionBD->obtenerConexion();
 
     $resultados = $conexionBD->login
-        ('SELECT *, count(*) as n_usuarios FROM cliente WHERE usuario=:usuario AND contraseña=:password'
+        ('SELECT *, count(*) as n_usuarios FROM mecanico WHERE usuario=:usuario AND contraseña=:password'
         , 
          array(':usuario' => $usuario, ':password' => $password));
 
@@ -22,8 +22,13 @@ if ($_POST) {
          
           $error = " ";
           $_SESSION['logueado'] = true;
-          header("location: indexCliente.php");
           
+          $id_USER= $resultados['idMecanico'];
+
+          $_SESSION['idMecanico'] = $id_USER;
+          
+          header("location: indexMecanico.php");
+
 
           
 
@@ -71,7 +76,7 @@ if(!$_POST){
         <div class="txt_field">
           <input type="text" required name="usuario">
           <span></span>
-          <label>Username</label>
+          <label>Nombre</label>
         </div>
         <div class="txt_field">
           <input type="password" required name="password">
@@ -80,8 +85,7 @@ if(!$_POST){
         </div>
         <input type="submit" value="Login">
         <div class="signup_link">
-        <a href="registro.php"> ¿No tienes una cuenta? Regístrate</a>
-        <a href="loginMecanico.php" class="mecanico"> iniciar como mécanico</a>
+        <a href="index.php" class="mecanico"> iniciar como cliente</a>
         </div>
       </form>
     </div>
