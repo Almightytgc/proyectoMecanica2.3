@@ -41,12 +41,26 @@ class Conexion {
 
     public function login($consulta, $parametros = array()) {
         $sentencia = $this->conexion->prepare($consulta);
-        foreach ($parametros as $nombre => $valor) {
+        foreach ($parametros as $nombre =>$valor) {
             $sentencia->bindParam($nombre, $parametros[$nombre]);
         }
         $sentencia->execute();
         $resultados = $sentencia->fetch();
         return $resultados;
+    }
+
+    public function insertar($sentencia, $parametros = array()){
+        $sentencia = $this->conexion->prepare($sentencia);
+
+        foreach($parametros as $nombre =>$valor){
+            $sentencia->bindParam($nombre, $parametros[$nombre]);
+            
+        }
+
+        $sentencia->execute();
+
+        return $sentencia;
+
     }
 }
 ?>

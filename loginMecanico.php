@@ -14,7 +14,8 @@ if ($_POST) {
     $conexion = $conexionBD->obtenerConexion();
 
     $resultados = $conexionBD->login
-        ('SELECT *, count(*) as n_usuarios FROM mecanico WHERE usuario=:usuario AND contraseña=:password'
+        ('SELECT *, count(*) as n_usuarios FROM mecanico WHERE usuario=:usuario
+         AND contraseña=:password'
         , 
          array(':usuario' => $usuario, ':password' => $password));
 
@@ -64,8 +65,8 @@ if(!$_POST){
     <div class="center">
       <h1>Iniciar sesión</h1>
       <div class="card text-center m-auto p-3">
-    <div class="card-body">
-    <?php if($error !== " " && $_POST){ ?>
+        <div class="card-body">
+        <?php if($error !== " " && $_POST){ ?>
         <div class="alert alert-danger" role="alert">
             <strong><?php echo $error;?></strong>
         </div>
