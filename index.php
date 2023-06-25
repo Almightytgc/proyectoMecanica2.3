@@ -23,6 +23,12 @@ if ($_POST) {
           $error = " ";
           $_SESSION['logueado'] = true;
           header("location: indexCliente.php");
+
+          $id_USER= $resultados['idCliente'];
+
+          $_SESSION['idCliente'] = $id_USER;
+        
+          header("location: indexCliente.php");
           
 
           
