@@ -77,7 +77,7 @@ if(!$_POST){
         <div class="txt_field">
           <input type="text" required name="usuario">
           <span></span>
-          <label>Nombre</label>
+          <label>usuario</label>
         </div>
         <div class="txt_field">
           <input type="password" required name="password">

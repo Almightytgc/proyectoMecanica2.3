@@ -1,0 +1,17 @@
+body{
+
+    background-image: url("https://picstatio.com/large/g39cs7/minimal-gradient.jpg");
+    opacity: 0.8;
+    
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Ajusta el último valor (0.5) para cambiar la opacidad */
+    z-index: -1;
+  }

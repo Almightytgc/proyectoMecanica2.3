@@ -2,5 +2,11 @@
 
 session_start();
 
-echo $_SESSION["idCliente"];
+if(!isset($_SESSION["idCliente"])){
+    header("location: index.php");
+}
+
+
+
+
 ?>

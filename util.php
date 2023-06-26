@@ -61,6 +61,17 @@ class Conexion {
 
         return $sentencia;
 
+
+
+    }
+
+    
+
+}
+
+function protegerHome($sesion){
+    if(!is_numeric($sesion)){
+        header("location:index.php");
     }
 }
 ?>
